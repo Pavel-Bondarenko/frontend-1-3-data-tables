@@ -1,5 +1,6 @@
+'use strict';
+
 function DataTable(config, data) {
-    let orderOfColumns = [];
     const table = document.createElement('table');
 
     const tableHeader = document.createElement('thead');
@@ -7,11 +8,10 @@ function DataTable(config, data) {
     const firstCell = document.createElement('th');
     firstCell.textContent = '№';
     headerRow.appendChild(firstCell);
-    config.columns.forEach(element => {
+    config.columns.map(c => c.title).forEach(title => {
         const cell = document.createElement('th');
-        cell.textContent = element.title;
+        cell.textContent = title;
         headerRow.appendChild(cell);
-        orderOfColumns.push(element.value);
     });
     tableHeader.appendChild(headerRow);
     table.appendChild(tableHeader);
@@ -23,7 +23,7 @@ function DataTable(config, data) {
         const firstCell = document.createElement('td');
         firstCell.textContent = ++number;
         bodyRow.appendChild(firstCell);
-        orderOfColumns.forEach((value) => {
+        config.columns.map(c => c.value).forEach((value) => {
             const cell = document.createElement('td');
             cell.textContent = element[value];
             bodyRow.appendChild(cell);
